@@ -12,11 +12,15 @@
 int main() {
   char input[MAX_INPUT_LENGTH];
 
-  printf("Wellcome Homies to My Batcave Dungeon Calculator!\n");
+  printf("\033[1;32mWelcome to My Batcave Dungeon Calculator!\033[0m\n");
+  printf("=============================================\n");
+  printf("Enter your weird math expression like 2+2 or just 'exit' and move on bruv: \n");
+
   printf("Enter your weird math expression like 2+2 or just 'exit' and move on bruv: ");
 
   while (1) {
-    printf("\n>>>");
+    printf("\n\033[1;34m>>>\033[0m ");
+
     fgets(input, MAX_INPUT_LENGTH, stdin);
     input[strcspn(input, "\n")] = '\0';  // remove trailing newline character
 
@@ -32,9 +36,11 @@ int main() {
       continue;
     }
 
-    printf("Postfix expression: %s\n", postfix);
+    printf("\033[1;33mPostfix expression: %s\033[0m\n", postfix);
+
     int result = evaluatePostfix(postfix); // evaluate postfix
-    printf("Your damn result: %d\n", result);
+    printf("\033[1;36mYour result: %d\033[0m\n", result);
+
 
     free(postfix);
   }

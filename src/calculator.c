@@ -33,7 +33,10 @@ int isOperator(char c) {
 }
 
 // convert infix to postfix (Shunting Yard Alg
-char *infixToPostfix(const char *infix) {
+char *infixToPostfix(const char *infix) { 
+  // Function to convert infix expression to postfix notation
+  // Handles negative numbers and multi-digit numbers
+
   Stack *operators = createStack(MAX_EXPRESSION_LENGTH);
   char *postfix = (char *)malloc(MAX_EXPRESSION_LENGTH * sizeof(char));
   int j = 0; // output index
@@ -45,8 +48,16 @@ char *infixToPostfix(const char *infix) {
       continue; // ignore whitespace
     }
 
-    if (isdigit(c)) { // if digit add to postfix
-      postfix[j++] = c;
+    if (isdigit(c) || (c == '-' && (i == 0 || infix[i-1] == '(' || isOperator(infix[i-1])))) { // Handle negative numbers
+      // Read the entire number (multi-digit)
+      int num = 0;
+      while (isdigit(c)) {
+        num = num * 10 + (c - '0');
+        c = infix[++i];
+      }
+      postfix[j++] = num; // Store the number in postfix
+      i--; // Adjust index since the for loop will increment it
+
     } else if (c == '(') { // if open paren push to stack
       push(operators, c);
     } else if (c == ')') { // pop till open paren
@@ -62,7 +73,9 @@ char *infixToPostfix(const char *infix) {
         return NULL;
       }
     } else if (isOperator(c)) { // Pop op of higher or equal precedence
-      while (!isEmpty(operators) && precedence(peek(operators)) >= precedence(c)) {
+      while (!isEmpty(operators) && precedence(peek(operators)) >= precedence(c)) { 
+        // Pop operators from the stack to the output
+
         postfix[j++] = pop(operators);
       }
       push(operators, c);
@@ -91,7 +104,10 @@ char *infixToPostfix(const char *infix) {
 }
 
 // evaluate postfix
-int evaluatePostfix(const char *postfix) {
+int evaluatePostfix(const char *postfix) { 
+  // Function to evaluate a postfix expression
+  // Handles multi-digit numbers
+
   Stack *values = createStack(MAX_EXPRESSION_LENGTH);
 
   for (int i = 0; postfix[i] != '\0'; i++) {
@@ -99,7 +115,15 @@ int evaluatePostfix(const char *postfix) {
 
     if (isdigit(c)) {
       // push digit to stack
-      push(values, c - '0');
+      // Push multi-digit numbers onto the stack
+      int num = 0;
+      while (isdigit(c)) {
+        num = num * 10 + (c - '0');
+        c = postfix[++i];
+      }
+      push(values, num); // Push the complete number onto the stack
+      i--; // Adjust index since the for loop will increment it
+
     } else if (isOperator(c)) {
       // pop two values from stack and apply operator
       int b = pop(values);

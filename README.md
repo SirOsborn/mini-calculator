@@ -1,6 +1,6 @@
 # Mini Calculator
 
-This is my Data Structures & Algorithms Class' mini project for my first term of second year at CamTech. Which is a terminal-based calculator program written in C. It is designed to evaluate mathematical expressions using the the legendary  precedence **Shunting Yard Algorithm** for converting infix expressions to postfix and then evaluating them. The project is organized into a structured hierarchy for better maintainability and scalability.
+This is my Data Structures & Algorithms Class' mini project for my first term of second year at CamTech. Which is a terminal-based calculator program written in C. It is designed to evaluate mathematical expressions using the the legendary precedence **Shunting Yard Algorithm** for converting infix expressions to postfix and then evaluating them. The project is organized into a structured hierarchy for better maintainability and scalability.
 
 ## Project Structure
 
@@ -25,6 +25,7 @@ mini-calculator/
 - **Postfix Evaluation**: Evaluates the postfix expression to compute the result.
 - **Stack Optimization**: Implements a stack for efficient memory management during expression evaluation.
 - **Terminal-Based Interface**: Accepts user input and displays results in the terminal.
+- **Support for Negative and Multi-Digit Numbers**: The calculator can now handle negative numbers and multi-digit calculations.
 
 ## Requirements
 
